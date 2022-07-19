@@ -212,7 +212,32 @@ int **matriz_adjacencia(grafo g) {
     exit(GRAPH_ERROR);
   }
 
-  return NULL;
+  long unsigned int tam = (long unsigned int)agnnodes(g);
+  int **adj = malloc( tam * sizeof(int *));
+  for (long unsigned int i = 0; i < tam; i++)
+    adj[i] = malloc(sizeof(int)*tam);
+  
+  long unsigned int i = 0;
+  long unsigned int j = 0;
+  vertice aux;
+  vertice aux2;
+
+  for (aux = agfstnode(g); aux; aux = agnxtnode(g, aux)) {
+    for(aux2 = agnxtnode(g, aux); aux2; aux2 = agnxtnode(g, aux2)) {
+      adj[i][j] = ( (agedge(g, aux, aux2, NULL, FALSE)) ? 0 : 1 );
+      j++;
+    }
+    i++;
+  }
+  
+  for (i = 0; i < tam; i++) {
+    for (j = 0; j < tam; j++) {
+      printf("%d ", adj[i][j]);
+    }
+    printf("\n");
+  }
+
+  return adj;
 }
 
 // -----------------------------------------------------------------------------

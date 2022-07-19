@@ -25,6 +25,7 @@ int main(void) {
 
   printf("Completude: %d\n", completo(g));
 
+  matriz_adjacencia(g);
   //escreve_grafo(g);
 
   destroi_grafo(g);

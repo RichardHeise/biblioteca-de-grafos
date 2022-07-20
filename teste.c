@@ -25,9 +25,12 @@ int main(void) {
 
   printf("Completude: %d\n", completo(g));
 
-  matriz_adjacencia(g);
-  //escreve_grafo(g);
+  grafo h = complemento(g);
 
+  n_triangulos(g);
+
+  escreve_grafo(h);
+  
   destroi_grafo(g);
 
   return 0;

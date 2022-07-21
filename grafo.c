@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include "grafo.h"
 
-//------------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 grafo le_grafo(void) {
 
   grafo g = agread(stdin, NULL);
@@ -13,7 +14,8 @@ grafo le_grafo(void) {
 
   return g; 
 }
-//------------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 void destroi_grafo(grafo g) {
   
   if ( !g ) {
@@ -23,7 +25,9 @@ void destroi_grafo(grafo g) {
 
   return;
 }
-//------------------------------------------------------------------------------
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 grafo escreve_grafo(grafo g) {
   
   if ( !g ) {
@@ -35,7 +39,7 @@ grafo escreve_grafo(grafo g) {
   return g;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int n_vertices(grafo g) {
   
   if ( !g ) {
@@ -46,7 +50,7 @@ int n_vertices(grafo g) {
   return agnnodes(g);
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int n_arestas(grafo g) {
   
   if ( !g ) {
@@ -57,7 +61,7 @@ int n_arestas(grafo g) {
   return agnedges(g);
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int grau(vertice v, grafo g) {
   
   if ( !v ) {
@@ -74,7 +78,7 @@ int grau(vertice v, grafo g) {
   return agdegree(g, v, TRUE, TRUE);;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int grau_maximo(grafo g)  {
   
   if ( !g ) {
@@ -96,7 +100,7 @@ int grau_maximo(grafo g)  {
   return grau_max;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int grau_minimo(grafo g)  {
   
   if ( !g ) {
@@ -118,7 +122,7 @@ int grau_minimo(grafo g)  {
   return grau_min;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int grau_medio(grafo g) {
   
   if ( !g ) {
@@ -139,7 +143,7 @@ int grau_medio(grafo g) {
   return grau_medio;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int regular(grafo g) {
   
   if ( !g ) {
@@ -158,7 +162,7 @@ int regular(grafo g) {
   return 1;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int completo(grafo g) {
   
   if ( !g ) {
@@ -172,7 +176,17 @@ int completo(grafo g) {
   return (agnedges(g) == max_arestas); 
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+static int buscaVetor(vertice vetor[], vertice elem, int tam) {
+  for (int i = 0; i < tam; i++) {
+    if (vetor[i] == elem) {
+      return 1;
+    }
+  }
+
+  return 0;
+}
+
 int conexo(grafo g) {
   
   if ( !g ) {
@@ -180,10 +194,40 @@ int conexo(grafo g) {
     exit(GRAPH_ERROR);
   }
 
+  int tam = agnnodes(g);
+  int i = 0;
+  int c = 0;
+
+  vertice visitados[tam];
+  visitados[i] = agfstnode(g);
+  i++;
+  
+  while (i) {
+    vertice aux = visitados[i];
+    i--;
+
+    // BFS
+    //if ( !buscaVetor(visitados, aux, i) ) {
+      for (vertice ver1 = aux; ver1; ver1 = agnxtnode(g, ver1)) {
+        for (vertice ver2 = agfstnode(g); ver2; ver2 = agnxtnode(g, ver2)) {
+          if ( agedge(g, ver1, ver2, NULL, FALSE) ) {
+            if ( !buscaVetor(visitados, ver2, i) ) {
+              visitados[i] = ver2; 
+              i++;
+              c++;
+            }
+          }
+        }
+      }
+    //}
+  }
+
+  printf("valor do c: %d\n", c);
   return 0;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 int bipartido(grafo g) {
   
   if ( !g ) {
@@ -194,12 +238,13 @@ int bipartido(grafo g) {
   return 0;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 static int **matriz_aloc(int tam) {
   
   int **matriz = malloc( tam * sizeof(int *));
 
-  if (!(**matriz)) {
+  if (!matriz) {
     perror("Erro ao alocar matriz de adjacência, abortando.\n");
     exit(MALLOC_ERROR);
   }
@@ -215,6 +260,26 @@ static int **matriz_aloc(int tam) {
   return matriz;
 }
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+static int **mult_matriz(int tam, int **m1, int **m2) {
+
+  int **mat = matriz_aloc(tam);
+
+  int soma = 0;
+
+  for (int i = 0; i < tam; i++) {
+    for (int j = 0; j < tam; j++) {
+      soma = 0;
+      for (int k = 0; k < tam; k++) {
+        soma += m1[i][k] * m2[k][j];
+      }
+      mat[i][j] += soma;
+    }
+  }
+
+  return mat;
+}
+
 int n_triangulos(grafo g) {
   
   if ( !g ) {
@@ -225,48 +290,18 @@ int n_triangulos(grafo g) {
   int tam = agnnodes(g);
 
   int **m_adj = matriz_adjacencia(g);
-  int **adj_quadrado = matriz_aloc(tam);
-  int **adj_cubic = matriz_aloc(tam);
+  int **m_aux = matriz_adjacencia(g);
 
-  int soma = 0;
+  m_aux = mult_matriz(tam, m_adj, m_aux);
+  m_aux = mult_matriz(tam, m_adj, m_aux);
 
-  for (int i = 0; i < tam; i++) {
-    for (int j = 0; j < tam; j++) {
-      soma = 0;
-      for (int k = 0; k < tam; k++) {
-        soma += m_adj[i][k] * m_adj[k][j];
-      }
-      adj_quadrado[i][j] += soma;
-    }
-  }
+  int traco = tam * m_aux[0][0];
+  int num_tri = (traco / 6);
 
-  for (int i = 0; i < tam; i++) {
-    for (int j = 0; j < tam; j++) {
-      soma = 0;
-      for (int k = 0; k < tam; k++) {
-        soma += adj_quadrado[i][k] * m_adj[k][j];
-      }
-      adj_cubic[i][j] += soma;
-    }
-  }
-
-  int traco = tam * adj_cubic[0][0];
-
-  int num_tri = (traco / adj_cubic[i][tam-1]);
-
-  for (int i = 0; i < tam; i++) {
-    for (int j = 0; j < tam; j++) {
-      printf("%d ", adj_cubic[i][j]);
-    }
-    printf("\n");
-  }
-
-  printf("TRIANGULOS: %d\n", num_tri);
-
-  return 0;
+  return num_tri;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 int **matriz_adjacencia(grafo g) {
@@ -295,7 +330,7 @@ int **matriz_adjacencia(grafo g) {
   return adj;
 }
 
-// -----------------------------------------------------------------------------
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 static grafo copia(grafo g) {
 
@@ -321,6 +356,8 @@ static grafo copia(grafo g) {
   return grafo_cp;
 }
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 grafo complemento(grafo g) {
   
   if ( !g ) {
@@ -331,18 +368,17 @@ grafo complemento(grafo g) {
   grafo g_comp = copia(g);
   vertice aux;
   vertice aux2;
-  Agedge_t* e;
   
 
   for (aux = agfstnode(g_comp); aux; aux = agnxtnode(g_comp, aux)) {
-    for(aux2 = aux; aux2; aux2 = agnxtnode(g_comp, aux2)) {
-      if (aux != aux2) {
+    for(aux2 = agnxtnode(g_comp, aux); aux2; aux2 = agnxtnode(g_comp, aux2)) {
+      if (aux->mainsub.node != aux2->mainsub.node) {
 
-        e = agedge(g_comp, aux, aux2, NULL, FALSE);
-        if (e) {
-          agdeledge( g_comp, e );
-        } else {
+        aresta e = agedge(g_comp, aux, aux2, NULL, FALSE);
+        if (e == NULL) {
           agedge(g_comp, aux, aux2, NULL, TRUE);
+        } else {
+          agdeledge( g_comp, e );
         }
 
       }

@@ -12,6 +12,7 @@
 
 typedef Agraph_t *grafo;
 typedef Agnode_t *vertice;
+typedef Agedge_t *aresta;
 
 // -----------------------------------------------------------------------------
 // devolve o grafo lido da entrada padrão (formato dot)

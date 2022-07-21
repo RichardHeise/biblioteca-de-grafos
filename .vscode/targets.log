@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul 19 09:41:09 2022
+# Make data base, printed on Wed Jul 20 11:21:27 2022
 
 # Variables
 
@@ -19,7 +19,6 @@ DESKTOP_SESSION = cinnamon
 # default
 .SHELLFLAGS := -c
 # environment
- 
 XDG_SESSION_CLASS = user
 # environment
 XDG_SESSION_TYPE = x11
@@ -206,7 +205,7 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/0e36e503_448f_4722_a18d_7f69a6e4c62c
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/71b20c94_5217_458d_833a_84d1907e4529
 # automatic
 ^F = $(notdir $^)
 # environment
@@ -224,7 +223,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 13867
+VSCODE_PID = 74801
 # variable set hash-table stats:
 # Load=107/1024=10%, Rehash=0, Collisions=11/132=8%
 
@@ -234,9 +233,9 @@ VSCODE_PID = 13867
 
 # Directories
 
-# . (device 56, inode 40239695): 13 files, no impossibilities.
+# . (device 56, inode 40239695): 14 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -281,13 +280,14 @@ clean:
 # Not a target:
 grafo.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-18 11:23:02.469237758
+ 
+#  Last modified 2022-07-20 10:55:11.647011477
 #  File has been updated.
 #  Successfully updated.
 
 teste: teste.o grafo.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-18 11:23:02.497238287
+#  Last modified 2022-07-20 10:55:11.679012259
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 45):
@@ -296,7 +296,7 @@ teste: teste.o grafo.o
 # Not a target:
 teste.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-18 11:11:03.651680992
+#  Last modified 2022-07-20 09:48:30.951151021
 #  File has been updated.
 #  Successfully updated.
 
@@ -308,13 +308,12 @@ teste.o:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 162 B / avg = 8 B
-# current buf: size = 8162 B / used = 162 B / count = 20 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 21 / storage = 173 B / avg = 8 B
+# current buf: size = 8162 B / used = 173 B / count = 21 / avg = 8 B
 
-# strcache performance: lookups = 35 / hit rate = 42%
- 
+# strcache performance: lookups = 36 / hit rate = 41%
 # hash-table stats:
-# Load=20/8192=0%, Rehash=0, Collisions=1/35=3%
-# Finished Make data base on Tue Jul 19 09:41:09 2022
+# Load=21/8192=0%, Rehash=0, Collisions=1/36=3%
+# Finished Make data base on Wed Jul 20 11:21:27 2022
 
  

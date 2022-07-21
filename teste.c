@@ -27,9 +27,17 @@ int main(void) {
 
   grafo h = complemento(g);
 
-  n_triangulos(g);
+  printf("Triangulos: %d\n", n_triangulos(g));
 
+  printf("Complementar:");
   escreve_grafo(h);
+  printf("\n");
+
+  printf("Original:");
+  escreve_grafo(g);
+  printf("\n");
+
+  printf("Conexo: %d\n", conexo(g));
   
   destroi_grafo(g);
 

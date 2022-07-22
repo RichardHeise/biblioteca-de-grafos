@@ -86,12 +86,12 @@ int grau_maximo(grafo g)  {
     exit(GRAPH_ERROR);
   }
 
-  vertice aux;
+  vertice origem;
   int grau_max = 0;
   int grau = 0;
 
-  for (aux = agfstnode(g); aux; aux = agnxtnode(g, aux)) {
-    grau = agdegree(g, aux, TRUE, TRUE);
+  for (origem = agfstnode(g); origem; origem = agnxtnode(g, origem)) {
+    grau = agdegree(g, origem, TRUE, TRUE);
     if ( grau_max < grau) {
       grau_max = grau;
     }
@@ -108,12 +108,12 @@ int grau_minimo(grafo g)  {
     exit(GRAPH_ERROR);
   }
 
-  vertice aux;
+  vertice origem;
   int grau_min = 2147483647; // max int value
   int grau = 0;
 
-  for (aux = agfstnode(g); aux; aux = agnxtnode(g, aux)) {
-    grau = agdegree(g, aux, TRUE, TRUE);
+  for (origem = agfstnode(g); origem; origem = agnxtnode(g, origem)) {
+    grau = agdegree(g, origem, TRUE, TRUE);
     if ( grau_min > grau) {
       grau_min = grau;
     }
@@ -130,12 +130,12 @@ int grau_medio(grafo g) {
     exit(GRAPH_ERROR);
   }
 
-  vertice aux;
+  vertice origem;
   int grau_medio = 0;
   int grau_soma = 0;
 
-  for (aux = agfstnode(g); aux; aux = agnxtnode(g, aux)) {
-    grau_soma += agdegree(g, aux, TRUE, TRUE);
+  for (origem = agfstnode(g); origem; origem = agnxtnode(g, origem)) {
+    grau_soma += agdegree(g, origem, TRUE, TRUE);
   }
 
   grau_medio = ( grau_soma / agnnodes(g) );
@@ -151,18 +151,19 @@ int regular(grafo g) {
     exit(GRAPH_ERROR);
   }
 
-  vertice aux = agfstnode(g);
+  vertice origem = agfstnode(g);
   int vertices = agnnodes(g)-1;
 
   while (vertices--) {
-    if (agdegree(g, aux, TRUE, TRUE) != agdegree(g, agnxtnode(g, aux), TRUE, TRUE) ) return 0;
-    aux = agnxtnode(g, aux);
+    if (agdegree(g, origem, TRUE, TRUE) != agdegree(g, agnxtnode(g, origem), TRUE, TRUE) ) return 0;
+    origem = agnxtnode(g, origem);
   }
 
   return 1;
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 int completo(grafo g) {
   
   if ( !g ) {
@@ -177,6 +178,7 @@ int completo(grafo g) {
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 static int buscaVetor(vertice vetor[], vertice elem, int tam) {
   for (int i = 0; i < tam; i++) {
     if (vetor[i] == elem) {
@@ -187,6 +189,8 @@ static int buscaVetor(vertice vetor[], vertice elem, int tam) {
   return 0;
 }
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 int conexo(grafo g) {
   
   if ( !g ) {
@@ -195,31 +199,40 @@ int conexo(grafo g) {
   }
 
   int tam = agnnodes(g);
-  int i = 0;
   int c = 0;
 
-  vertice visitados[tam];
-  visitados[i] = agfstnode(g);
+  int i = 0;
+  vertice pilha[tam];
+  pilha[i] = agfstnode(g);
   i++;
+
+  int j = 0;
+  vertice visitados[tam];
   
   while (i) {
-    vertice aux = visitados[i];
+    vertice origem = pilha[i];
     i--;
 
     // BFS
-    //if ( !buscaVetor(visitados, aux, i) ) {
-      for (vertice ver1 = aux; ver1; ver1 = agnxtnode(g, ver1)) {
+    if ( !buscaVetor(visitados, origem, i) ) {
+      visitados[j] = origem;
+      j++;
+
+      for (vertice ver1 = origem; ver1; ver1 = agnxtnode(g, ver1)) {
         for (vertice ver2 = agfstnode(g); ver2; ver2 = agnxtnode(g, ver2)) {
+
           if ( agedge(g, ver1, ver2, NULL, FALSE) ) {
-            if ( !buscaVetor(visitados, ver2, i) ) {
-              visitados[i] = ver2; 
+            if ( !buscaVetor(visitados, ver2, j) ) {
+              pilha[i] = ver2; 
               i++;
               c++;
             }
           }
+
         }
       }
-    //}
+
+    }
   }
 
   printf("valor do c: %d\n", c);
@@ -261,6 +274,7 @@ static int **matriz_aloc(int tam) {
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 static int **mult_matriz(int tam, int **m1, int **m2) {
 
   int **mat = matriz_aloc(tam);
@@ -279,6 +293,8 @@ static int **mult_matriz(int tam, int **m1, int **m2) {
 
   return mat;
 }
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 int n_triangulos(grafo g) {
   
@@ -315,13 +331,13 @@ int **matriz_adjacencia(grafo g) {
   
   int i = 0;
   int j = 0;
-  vertice aux;
-  vertice aux2;
+  vertice origem;
+  vertice destino;
 
-  for (aux = agfstnode(g); aux; aux = agnxtnode(g, aux)) {
+  for (origem = agfstnode(g); origem; origem = agnxtnode(g, origem)) {
     j = 0;
-    for(aux2 = agfstnode(g); aux2; aux2 = agnxtnode(g, aux2)) {
-      adj[i][j] = ( (agedge(g, aux, aux2, NULL, FALSE)) ? 1 : 0 );
+    for(destino = agfstnode(g); destino; destino = agnxtnode(g, destino)) {
+      adj[i][j] = ( (agedge(g, origem, destino, NULL, FALSE)) ? 1 : 0 );
       j++;
     }
     i++;
@@ -340,17 +356,27 @@ static grafo copia(grafo g) {
   }
 
   grafo grafo_cp = agopen("grafo_cp", Agstrictundirected, NULL);
-  vertice aux;
-  vertice aux2;
-  
-  for (aux = agfstnode(g); aux; aux = agnxtnode(g, aux)) {
-    agnode(grafo_cp, agnameof(aux), TRUE);
+  vertice origem;
+  vertice destino;
+
+  int **adj = matriz_adjacencia(g);
+  int tam = agnnodes(g);
+  int i = 0;
+  int j = 0;
+
+  for (origem = agfstnode(g); origem; origem = agnxtnode(g, origem)) {
+    agnode(grafo_cp, agnameof(origem), TRUE);
   }
 
-  for (aux = agfstnode(grafo_cp); aux; aux = agnxtnode(grafo_cp, aux)) {
-    for(aux2 = agnxtnode(grafo_cp, aux); aux2; aux2 = agnxtnode(grafo_cp, aux2)) {
-      agedge(grafo_cp, aux, aux2, NULL, TRUE);
+  for (origem = agfstnode(grafo_cp); origem && i < tam; origem = agnxtnode(grafo_cp, origem)) {
+    j = i+1;
+    for (destino = agnxtnode(grafo_cp, origem); destino && j < tam; destino = agnxtnode(grafo_cp, destino)) {
+      if (adj[i][j]) {
+        agedge(grafo_cp, origem, destino, NULL, TRUE);
+      }
+      j++;
     }
+    i++;
   }
 
   return grafo_cp;
@@ -366,21 +392,20 @@ grafo complemento(grafo g) {
   }
 
   grafo g_comp = copia(g);
-  vertice aux;
-  vertice aux2;
+  vertice origem;
+  vertice destino;
   
 
-  for (aux = agfstnode(g_comp); aux; aux = agnxtnode(g_comp, aux)) {
-    for(aux2 = agnxtnode(g_comp, aux); aux2; aux2 = agnxtnode(g_comp, aux2)) {
-      if (aux->mainsub.node != aux2->mainsub.node) {
+  for (origem = agfstnode(g_comp); origem; origem = agnxtnode(g_comp, origem)) {
+    for(destino = agnxtnode(g_comp, origem); destino; destino = agnxtnode(g_comp, destino)) {
+      if (origem != destino) {
 
-        aresta e = agedge(g_comp, aux, aux2, NULL, FALSE);
+        aresta e = agedge(g_comp, origem, destino, NULL, FALSE);
         if (e == NULL) {
-          agedge(g_comp, aux, aux2, NULL, TRUE);
+          agedge(g_comp, origem, destino, NULL, TRUE);
         } else {
           agdeledge( g_comp, e );
         }
-
       }
     }
   }

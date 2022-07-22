@@ -25,16 +25,16 @@ int main(void) {
 
   printf("Completude: %d\n", completo(g));
 
-  grafo h = complemento(g);
-
   printf("Triangulos: %d\n", n_triangulos(g));
+  
+  printf("Original:");
+  escreve_grafo(g);
+  printf("\n");
+
+  grafo h = complemento(g);
 
   printf("Complementar:");
   escreve_grafo(h);
-  printf("\n");
-
-  printf("Original:");
-  escreve_grafo(g);
   printf("\n");
 
   printf("Conexo: %d\n", conexo(g));

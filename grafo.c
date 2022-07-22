@@ -199,7 +199,6 @@ int conexo(grafo g) {
   }
 
   int tam = agnnodes(g);
-  int c = 0;
 
   int i = 0;
   vertice pilha[tam];
@@ -210,33 +209,27 @@ int conexo(grafo g) {
   vertice visitados[tam];
   
   while (i) {
-    vertice origem = pilha[i];
     i--;
+    vertice origem = pilha[i];
 
     // BFS
     if ( !buscaVetor(visitados, origem, i) ) {
-      visitados[j] = origem;
-      j++;
 
-      for (vertice ver1 = origem; ver1; ver1 = agnxtnode(g, ver1)) {
-        for (vertice ver2 = agfstnode(g); ver2; ver2 = agnxtnode(g, ver2)) {
+        for (vertice ver1 = agfstnode(g); ver1; ver1 = agnxtnode(g, ver1)) {
 
-          if ( agedge(g, ver1, ver2, NULL, FALSE) ) {
-            if ( !buscaVetor(visitados, ver2, j) ) {
-              pilha[i] = ver2; 
+          if ( agedge(g, origem, ver1, NULL, FALSE)) {
+            if ( !buscaVetor(visitados, ver1, j) ) {
+              pilha[i] = ver1; 
               i++;
-              c++;
             }
           }
-
-        }
       }
-
+      visitados[j] = origem;
+      j++;
     }
   }
 
-  printf("valor do c: %d\n", c);
-  return 0;
+  return (j == tam-1) ? 0 : 1;
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

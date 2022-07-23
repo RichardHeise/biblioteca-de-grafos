@@ -1,5 +1,7 @@
 graph graphname {
     a -- b;
-    c -- b;
-    c -- a;
+    b -- d;
+    d -- e;
+    e -- a;
+    f;
 }

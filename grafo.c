@@ -208,6 +208,7 @@ int conexo(grafo g) {
   int j = 0;
   vertice visitados[tam];
   
+  int c = 0;
   while (i) {
     i--;
     vertice origem = pilha[i];
@@ -215,21 +216,23 @@ int conexo(grafo g) {
     // BFS
     if ( !buscaVetor(visitados, origem, i) ) {
 
-        for (vertice ver1 = agfstnode(g); ver1; ver1 = agnxtnode(g, ver1)) {
+      for (vertice ver1 = origem; ver1; ver1 = agnxtnode(g, ver1)) {
 
-          if ( agedge(g, origem, ver1, NULL, FALSE)) {
-            if ( !buscaVetor(visitados, ver1, j) ) {
-              pilha[i] = ver1; 
-              i++;
-            }
+        if ( agedge(g, origem, ver1, NULL, FALSE)) {
+          if ( !buscaVetor(visitados, ver1, j) ) {
+            pilha[i] = ver1; 
+            c++;
+            i++;
           }
+        }
       }
       visitados[j] = origem;
       j++;
+
     }
   }
 
-  return (j == tam-1) ? 0 : 1;
+  return (c == tam-1);
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -312,7 +315,6 @@ int n_triangulos(grafo g) {
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
 int **matriz_adjacencia(grafo g) {
   
   if ( !g ) {
@@ -352,24 +354,16 @@ static grafo copia(grafo g) {
   vertice origem;
   vertice destino;
 
-  int **adj = matriz_adjacencia(g);
-  int tam = agnnodes(g);
-  int i = 0;
-  int j = 0;
-
   for (origem = agfstnode(g); origem; origem = agnxtnode(g, origem)) {
     agnode(grafo_cp, agnameof(origem), TRUE);
   }
 
-  for (origem = agfstnode(grafo_cp); origem && i < tam; origem = agnxtnode(grafo_cp, origem)) {
-    j = i+1;
-    for (destino = agnxtnode(grafo_cp, origem); destino && j < tam; destino = agnxtnode(grafo_cp, destino)) {
-      if (adj[i][j]) {
-        agedge(grafo_cp, origem, destino, NULL, TRUE);
+  for (origem = agfstnode(g); origem; origem = agnxtnode(g, origem)) {
+    for (destino = agnxtnode(g, origem); destino; destino = agnxtnode(g, destino)) {
+      if ( agedge(g, origem, destino, NULL, FALSE) ) {
+        agedge(grafo_cp, agnode(grafo_cp, agnameof(origem), FALSE), agnode(grafo_cp, agnameof(destino), FALSE), NULL, TRUE);
       }
-      j++;
     }
-    i++;
   }
 
   return grafo_cp;

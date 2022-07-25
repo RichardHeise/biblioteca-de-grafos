@@ -3,16 +3,10 @@
 
 #include <graphviz/cgraph.h>
 
-#define READ_ERROR -1
-#define NODE_ERROR -2
-#define GRAPH_ERROR -3
-#define MALLOC_ERROR -4
-
 //------------------------------------------------------------------------------
 
 typedef Agraph_t *grafo;
 typedef Agnode_t *vertice;
-typedef Agedge_t *aresta;
 
 // -----------------------------------------------------------------------------
 // devolve o grafo lido da entrada padrão (formato dot)

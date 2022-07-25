@@ -1,6 +1,15 @@
+// Richard Fernando Heise Ferreira GRR20191053
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "grafo.h"
+
+typedef Agedge_t *aresta;
+
+#define READ_ERROR -1
+#define NODE_ERROR -2
+#define GRAPH_ERROR -3
+#define MALLOC_ERROR -4
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

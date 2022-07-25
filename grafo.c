@@ -319,6 +319,8 @@ static int **matriz_aloc(int tam) {
   return matriz;
 }
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 static void matriz_free(int **m, int tam) {
   for (int i = 0; i < tam; i++)
     free(m[i]);

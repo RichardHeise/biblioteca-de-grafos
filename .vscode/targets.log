@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul 22 14:08:53 2022
+# Make data base, printed on Mon Jul 25 10:45:33 2022
 
 # Variables
 
@@ -67,7 +67,7 @@ XDG_DATA_DIRS = /usr/share/cinnamon:/usr/share/gnome:/home/heise/.local/share/fl
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # environment
-VSCODE_CWD = /home/heise/biblioteca-de-grafos
+VSCODE_CWD = /home/heise
 # environment
 XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
 # default
@@ -191,8 +191,6 @@ GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
-NO_AT_BRIDGE = 1
-# environment
 QT_ACCESSIBILITY = 1
 # environment
 DESKTOP_AUTOSTART_ID = 1099b736b6c80f8a52165823435085423800000124870020
@@ -207,11 +205,11 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/285948b8_5ffe_4fb3_9b8f_06d3ae02dbaf
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/9c2288ac_32c1_4b69_96d3_d7cb7f9ee104
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.78
+GNOME_TERMINAL_SERVICE = :1.4872
 # default
 SUFFIXES := 
 # environment
@@ -225,9 +223,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 119438
+VSCODE_PID = 254369
 # variable set hash-table stats:
-# Load=108/1024=11%, Rehash=0, Collisions=11/133=8%
+# Load=107/1024=10%, Rehash=0, Collisions=11/132=8%
 
 # Pattern-specific Variable Values
 
@@ -277,19 +275,19 @@ clean:
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 49):
- 
 	$(RM) teste *.o
 
 # Not a target:
 grafo.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 16:33:35.939097387
+ 
+#  Last modified 2022-07-22 17:29:11.868733966
 #  File has been updated.
 #  Successfully updated.
 
 teste: teste.o grafo.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-21 16:33:35.971098038
+#  Last modified 2022-07-22 17:29:11.892734455
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 45):
@@ -298,7 +296,7 @@ teste: teste.o grafo.o
 # Not a target:
 teste.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-21 16:01:55.791155388
+#  Last modified 2022-07-22 15:19:54.638519239
 #  File has been updated.
 #  Successfully updated.
 
@@ -316,6 +314,6 @@ teste.o:
 # strcache performance: lookups = 36 / hit rate = 41%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=1/36=3%
-# Finished Make data base on Fri Jul 22 14:08:53 2022
+# Finished Make data base on Mon Jul 25 10:45:33 2022
 
  

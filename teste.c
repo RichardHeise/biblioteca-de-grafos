@@ -6,7 +6,7 @@
 int main(void) {
 
   grafo g = le_grafo();
-
+  
   printf("Número de vértices: %d\n", n_vertices(g) );
 
   printf("Número de arestas: %d\n", n_arestas(g) );
@@ -42,6 +42,7 @@ int main(void) {
   printf("Conexo: %d\n", conexo(g));
   
   destroi_grafo(g);
+  destroi_grafo(h);
 
   return 0;
 }

@@ -23,6 +23,8 @@ void destroi_grafo(grafo g) {
     exit(GRAPH_ERROR);
   }
 
+  agfree(g, NULL);
+
   return;
 }
 
@@ -211,14 +213,14 @@ int conexo(grafo g) {
   int c = 0;
   while (i) {
     i--;
-    vertice origem = pilha[i];
+    vertice topo = pilha[i];
 
     // BFS
-    if ( !buscaVetor(visitados, origem, i) ) {
+    if ( !buscaVetor(visitados, topo, i) ) {
 
-      for (vertice ver1 = origem; ver1; ver1 = agnxtnode(g, ver1)) {
+      for (vertice ver1 = topo; ver1; ver1 = agnxtnode(g, ver1)) {
 
-        if ( agedge(g, origem, ver1, NULL, FALSE)) {
+        if ( agedge(g, topo, ver1, NULL, FALSE)) {
           if ( !buscaVetor(visitados, ver1, j) ) {
             pilha[i] = ver1; 
             c++;
@@ -226,7 +228,7 @@ int conexo(grafo g) {
           }
         }
       }
-      visitados[j] = origem;
+      visitados[j] = topo;
       j++;
 
     }
@@ -243,6 +245,8 @@ int bipartido(grafo g) {
     perror("Grafo nulo, abortando.\n");
     exit(GRAPH_ERROR);
   }
+
+  if (completo(g)) return 0;
 
   typedef struct nodo_s {
     vertice n;
@@ -280,7 +284,7 @@ int bipartido(grafo g) {
         if ( agedge(g, topo.n, nodos[j].n, NULL, FALSE) ) {
           if (!nodos[j].cor) {
 
-            nodos[j].cor = ((j % 2) + 1);
+            nodos[j].cor = topo.cor + 1;
             pilha[i] = nodos[j]; 
             i++;
 
@@ -313,6 +317,12 @@ static int **matriz_aloc(int tam) {
   }
 
   return matriz;
+}
+
+static void matriz_free(int **m, int tam) {
+  for (int i = 0; i < tam; i++)
+    free(m[i]);
+  free(m);
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -355,6 +365,9 @@ int n_triangulos(grafo g) {
 
   int traco = tam * m_aux[0][0];
   int num_tri = (traco / 6);
+
+  matriz_free(m_adj, tam);
+  matriz_free(m_aux, tam);
 
   return num_tri;
 }

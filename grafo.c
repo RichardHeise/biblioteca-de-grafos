@@ -244,7 +244,53 @@ int bipartido(grafo g) {
     exit(GRAPH_ERROR);
   }
 
-  return 0;
+  typedef struct nodo_s {
+    vertice n;
+    short cor;
+  } nodo_t;
+
+  int tam = agnnodes(g);
+  int i = 0;
+
+  nodo_t nodos[tam];
+
+  for (vertice origem = agfstnode(g); origem; origem = agnxtnode(g, origem)) {
+    nodos[i].n = origem;
+    nodos[i].cor = 0;
+    i++;
+  }
+
+  i = 0;
+  nodo_t pilha[tam];
+
+  for (int k = 0; k < tam; k++) {
+
+    if (!nodos[k].cor) {
+      nodos[k].cor = 1;
+      pilha[i] = nodos[k];
+      i++;
+    }
+
+    while (i) {
+      i--;
+      nodo_t topo = pilha[i];
+
+      for (int j = 0; j < tam; j++) {
+
+        if ( agedge(g, topo.n, nodos[j].n, NULL, FALSE) ) {
+          if (!nodos[j].cor) {
+
+            nodos[j].cor = ((j % 2) + 1);
+            pilha[i] = nodos[j]; 
+            i++;
+
+          } else if (nodos[j].cor == topo.cor) return 0;
+        } 
+      }
+    }
+  }
+  
+  return 1;
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -26,6 +26,8 @@ int main(void) {
   printf("Completude: %d\n", completo(g));
 
   printf("Triangulos: %d\n", n_triangulos(g));
+
+  printf("Bipartido: %d\n", bipartido(g));
   
   printf("Original:");
   escreve_grafo(g);

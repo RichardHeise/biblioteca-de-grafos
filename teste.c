@@ -11,10 +11,6 @@ int main(void) {
 
   printf("Número de arestas: %d\n", n_arestas(g) );
 
-  printf("Vértice escolhido foi: %s\n", agnameof(agfstnode(g)));
-
-  printf("Grau do vértice a é: %d\n", grau(agnode(g, agnameof(agfstnode(g)), FALSE), g));
-
   printf("O grau máximo do grafo g é: %d\n", grau_maximo(g));
 
   printf("O grau mínimo do grafo g é: %d\n", grau_minimo(g));
@@ -30,13 +26,13 @@ int main(void) {
   printf("Bipartido: %d\n", bipartido(g));
   
   printf("Original:");
-  escreve_grafo(g);
+  //escreve_grafo(g);
   printf("\n");
 
   grafo h = complemento(g);
 
   printf("Complementar:");
-  escreve_grafo(h);
+  //escreve_grafo(h);
   printf("\n");
 
   printf("Conexo: %d\n", conexo(g));

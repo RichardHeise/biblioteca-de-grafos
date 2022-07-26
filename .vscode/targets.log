@@ -6,18 +6,20 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul 25 10:45:33 2022
+# Make data base, printed on Tue Jul 26 09:32:55 2022
 
 # Variables
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
-# automatic
-?F = $(notdir $?)
+# environment
+RUBY_VERSION = ruby-3.0.0
 # environment
 DESKTOP_SESSION = cinnamon
 # default
 .SHELLFLAGS := -c
+# automatic
+?F = $(notdir $?)
 # environment
 XDG_SESSION_CLASS = user
 # environment
@@ -28,6 +30,8 @@ NVM_INC = /home/heise/.nvm/versions/node/v17.7.1/include/node
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
 GTK3_MODULES = xapp-gtk3-module
+# environment
+rvm_path = /home/heise/.rvm
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -43,11 +47,9 @@ SHELL = /bin/sh
 # environment
 GDM_LANG = pt_BR
 # environment
-VTE_VERSION = 6003
-# environment
 VSCODE_NLS_CONFIG = {"locale":"pt-br","availableLanguages":{},"_languagePackSupport":true}
 # environment
-_ = /usr/bin/code
+_ = /usr/share/code/code
 # makefile (from 'makefile', line 1)
 CFLAGS = -std=c99 -pipe -ggdb3 -Wstrict-overflow=5 -fstack-protector-all -W -Wall -Wextra -Wbad-function-cast -Wcast-align -Wcast-qual -Wconversion -Wfloat-equal -Wformat-y2k -Winit-self -Winline -Winvalid-pch -Wmissing-declarations -Wmissing-field-initializers -Wmissing-format-attribute -Wmissing-include-dirs -Wmissing-noreturn -Wmissing-prototypes -Wnested-externs -Wnormalized=nfc -Wold-style-definition -Woverlength-strings -Wpacked -Wpadded -Wpointer-arith -Wredundant-decls -Wshadow -Wsign-compare -Wstack-protector -Wstrict-aliasing=2 -Wstrict-prototypes -Wundef -Wunsafe-loop-optimizations -Wvolatile-register-var -Wwrite-strings
 # environment
@@ -58,6 +60,8 @@ GTK_OVERLAY_SCROLLING = 1
 MAKEFILE_LIST :=  makefile
 # automatic
 @F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
 # 'override' directive
 GNUMAKEFLAGS := 
 # environment
@@ -73,13 +77,15 @@ XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session0
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/heise/.cabal/bin:/home/heise/.ghcup/bin:/home/heise/.nvm/versions/node/v17.7.1/bin:/home/heise/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/heise/.rvm/bin:/home/heise/.rvm/bin
+PATH = /home/heise/.cabal/bin:/home/heise/.ghcup/bin:/home/heise/.nvm/versions/node/v17.7.1/bin:/home/heise/.rvm/gems/ruby-3.0.0/bin:/home/heise/.rvm/gems/ruby-3.0.0@global/bin:/home/heise/.rvm/rubies/ruby-3.0.0/bin:/home/heise/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/heise/.rvm/bin:/home/heise/.rvm/bin
 # environment
 GPG_AGENT_INFO = /run/user/1000/gnupg/S.gpg-agent:0:1
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
 SESSION_MANAGER = local/raven:@/tmp/.ICE-unix/12487,unix/raven:/tmp/.ICE-unix/12487
+# environment
+rvm_stored_umask = 002
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
@@ -89,25 +95,29 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
-ELECTRON_NO_ATTACH_CONSOLE = 1
-# environment
 XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/heise
 # environment
-LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+LS_COLORS = 
 # environment
 XDG_SESSION_DESKTOP = cinnamon
 # environment
 SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 285976
 # automatic
 %F = $(notdir $%)
 # environment
 DISPLAY = :0
+# environment
+rvm_bin_path = /home/heise/.rvm/bin
 # environment
 PWD = /home/heise/biblioteca-de-grafos
 # environment
 QT_QPA_PLATFORMTHEME = qt5ct
 # default
 .LOADED := 
+# environment
+GEM_HOME = /home/heise/.rvm/gems/ruby-3.0.0
 # environment
 XDG_SEAT = seat0
 # environment
@@ -120,8 +130,6 @@ GTK_MODULES = gail:atk-bridge
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /home/heise
-# environment
-VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /home/heise/.config/Code/CachedData/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a
 # environment
@@ -143,13 +151,15 @@ XDG_VTNR = 7
 # environment
 MAKELEVEL := 0
 # environment
-COLORTERM = truecolor
+GEM_PATH = /home/heise/.rvm/gems/ruby-3.0.0:/home/heise/.rvm/gems/ruby-3.0.0@global
 # default
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-SHLVL = 1
+IRBRC = /home/heise/.rvm/rubies/ruby-3.0.0/.irbrc
+# environment
+SHLVL = 0
 # environment
 XDG_SESSION_ID = c2
 # environment
@@ -158,6 +168,8 @@ USER = heise
 .DEFAULT_GOAL := all
 # environment
 XDG_CURRENT_DESKTOP = X-Cinnamon
+# environment
+rvm_version = 1.29.12 (latest)
 # environment
 LESS = -R
 # automatic
@@ -188,12 +200,14 @@ NVM_DIR = /home/heise/.nvm
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 GDK_BACKEND = x11
+# environment
+rvm_user_install_flag = 1
 # automatic
 +F = $(notdir $+)
 # environment
-QT_ACCESSIBILITY = 1
+CINNAMON_VERSION = 5.2.7
 # environment
-DESKTOP_AUTOSTART_ID = 1099b736b6c80f8a52165823435085423800000124870020
+QT_ACCESSIBILITY = 1
 # environment
 DEFAULTS_PATH = /usr/share/gconf/cinnamon.default.path
 # default
@@ -205,27 +219,31 @@ PAGER = less
 # environment
 LC_ALL = C
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/9c2288ac_32c1_4b69_96d3_d7cb7f9ee104
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.4872
+rvm_prefix = /home/heise
 # default
 SUFFIXES := 
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# environment
+rvm_loaded_flag = 1
 # default
 .RECIPEPREFIX := 
 # environment
 LANG = C
 # environment
-TERM = xterm-256color
+VSCODE_PID = 285976
 # environment
-VSCODE_PID = 254369
+MY_RUBY_HOME = /home/heise/.rvm/rubies/ruby-3.0.0
 # variable set hash-table stats:
-# Load=107/1024=10%, Rehash=0, Collisions=11/132=8%
+# Load=116/1024=11%, Rehash=0, Collisions=9/141=6%
 
 # Pattern-specific Variable Values
 
@@ -274,20 +292,20 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
+ 
 #  recipe to execute (from 'makefile', line 49):
 	$(RM) teste *.o
 
 # Not a target:
 grafo.o:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-07-22 17:29:11.868733966
+#  Last modified 2022-07-25 11:32:09.533965721
 #  File has been updated.
 #  Successfully updated.
 
 teste: teste.o grafo.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-22 17:29:11.892734455
+#  Last modified 2022-07-25 11:37:49.568825389
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 45):
@@ -296,7 +314,7 @@ teste: teste.o grafo.o
 # Not a target:
 teste.o:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-22 15:19:54.638519239
+#  Last modified 2022-07-25 11:37:49.544824906
 #  File has been updated.
 #  Successfully updated.
 
@@ -314,6 +332,6 @@ teste.o:
 # strcache performance: lookups = 36 / hit rate = 41%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=1/36=3%
-# Finished Make data base on Mon Jul 25 10:45:33 2022
+# Finished Make data base on Tue Jul 26 09:32:55 2022
 
  

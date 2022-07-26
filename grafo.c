@@ -320,7 +320,8 @@ int bipartido(grafo g) {
                 if (!nodos[j].cor) {
 
                     // colorimos com uma cor diferente ao do topo
-                    nodos[j].cor = topo.cor + 1;
+                    // só temos duas cores aqui
+                    nodos[j].cor = ((topo.cor % 2) + 1);
 
                     // empilhamos o vizinho
                     pilha[i] = nodos[j]; 

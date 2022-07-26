@@ -1,5 +1,3 @@
-graph graphname {
+graph g_Teste {
     a -- b;
-    c -- b;
-    c -- a;
 }
